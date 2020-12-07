@@ -2,10 +2,13 @@
   "name": "pwa-demo-fagdag-backend",
   "version": "0.1.0",
   "description": "",
-  "main": "server.js",
+  "main": "src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/server.js"
   },
   "author": "Lars Johan Nybø",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
