@@ -8,9 +8,10 @@ function Point(lat, lon) {
   this.lon = lon;
 }
 
-function Fence(points = []) {
+function Fence(points = [], name) {
   this.id = FENCES.length;
   this.points = points;
+  this.name = name || `Fence${FENCES.length}`;
 }
 
 
