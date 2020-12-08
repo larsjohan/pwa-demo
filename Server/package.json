@@ -1,5 +1,5 @@
 {
-  "name": "pwa-demo-fagdag-backend",
+  "name": "pwa-demo-fagdag-frontend-backend",
   "version": "0.1.0",
   "description": "",
   "main": "src/server.js",
