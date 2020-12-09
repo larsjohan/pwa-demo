@@ -2,7 +2,7 @@ import React, {FC, useEffect, useState} from 'react';
 import getApi from '../services/ApiService';
 import {Fence} from '../declarations/Fence';
 import {List, ListItem, Typography} from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 
 const api = getApi();
 

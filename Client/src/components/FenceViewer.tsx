@@ -1,7 +1,7 @@
 import React, {FC, useEffect, useMemo, useState} from 'react';
 import {Point} from '../declarations/Point';
 import {makeStyles} from '@material-ui/core';
-import Helpers from '../assets/js/Helpers';
+import Helpers from '../Helpers';
 
 const useStyles = makeStyles((theme) => ({
   viewport: {

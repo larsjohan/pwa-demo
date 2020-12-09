@@ -7,10 +7,10 @@ import {CssBaseline} from '@material-ui/core';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 ReactDOM.render(
-  <React.StrictMode>
+  <>
     <CssBaseline/>
     <App />
-  </React.StrictMode>,
+  </>,
   document.getElementById('root')
 );
 

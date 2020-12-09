@@ -65,8 +65,10 @@ export const AddFenceView: FC = () => {
       name,
       points: points,
     } as Fence);
-    console.log(fence);
-    alert(JSON.stringify(fence));
+    if (fence) {
+      setPoints([]);
+      setName('');
+    }
   }
 
   return (

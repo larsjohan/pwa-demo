@@ -24,7 +24,9 @@ type Config = {
 };
 
 export function register(config?: Config) {
-  if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
+  // NOTE: For the sake of this demo-app, we will allow the serviceWorker to be enabled in development-mode:
+  // Add `process.env.NODE_ENV === 'production'` to this check to only register SW in production.
+  if ('serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
     const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
     if (publicUrl.origin !== window.location.origin) {

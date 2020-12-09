@@ -3,6 +3,11 @@ The intention of this project is to learn how PWAs work using an
 application that represents a somewhat real scenario. The app is a default ReactJS-app (created using create-react-app, or CRA), 
 and your task is to turn it into a PWA. Some suggestions to what you can do can be found under [Tasks](#tasks).
 
+## Disclaimers
+* Limited iOS support
+* The codebase is provided as is, and is not thoroughly tested, therefore bugs may appear.
+* This app is intended for testing-/demo purposes only. Usage happens at the user's discretion.
+
 ## Modules
 This app consists of a server (express) and a client (ReactJS). 
 
@@ -23,7 +28,14 @@ The API provides a few simple endpoints:
 ### Client
 The client is responsible for creating and displaying the GeoFences.
 
-The app follows the latest recommendations.
+The sourcecode is structures like this:
+* `./client/src/components`: Contains all "standalone" React components
+* `./client/src/declarations`: Contains all interfaces, types and classes
+* `./client/src/framework`: Contains all components used to "scaffold" the app. E.g the component rendering the header of the app
+* `./client/src/hooks`: Contains all custom hooks
+* `./client/src/services`: Contains all logic that does not render anything, and is not a hook
+* `./client/src/views`: Contains all component that are responsible for rendering a "page" in the application. E.g the "Home" page.
+* `./client/src`: Root: Contains configuration files and globals, including `index`
 
 ## Setup and Installation
 1. Clone this repo
@@ -59,8 +71,10 @@ or changing the default-port in the `./server/server.js` file.
 1. Enable "PWA support":
     * Update the manifest: `./client/public/manifest.json`
     * Register the ServiceWorker
+        * This is mostly done by `create-react-app`. See `./client/src/index.tsx`
     * If it worked, you should be able to [connect your mobile device](#accessing-the-client-on-a-mobile-device) 
     and be prompted to add the app to your home screen. 
 2. Add appropriate caching-rules
+    * See `./client/src/service-worker.ts` and [the Workbox documentation on caching and caching strategies](https://developers.google.com/web/tools/workbox/guides/get-started#routing_and_caching_strategies)
 3. Use the `background-sync` API to be able to create GeoFences while offline.
 4. Use the `notification` API to notify the user when he/she crosses the boundary of a GeoFence. 
