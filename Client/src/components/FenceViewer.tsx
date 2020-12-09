@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useMemo, useState} from 'react';
+import React, {FC, ReactNode, useEffect, useMemo, useState} from 'react';
 import {Point} from '../declarations/Point';
 import {makeStyles} from '@material-ui/core';
 import Helpers from '../Helpers';
@@ -29,7 +29,7 @@ export interface FenceViewerProps {
   /**
    * The points to draw. Represents a fence
    */
-  points: Array<Point>;
+  polygons: Array<Array<Point>>;
   /**
    * the center of the viewport
    */
@@ -53,7 +53,7 @@ export interface FenceViewerProps {
 const ONE_M_FACTOR = (0.00001 / 1.11);
 
 export const FenceViewer: FC<FenceViewerProps> = ({
-                                                    points,
+                                                    polygons,
                                                     center,
                                                     displayCenterDot = false,
                                                     accuracy = 0,
@@ -72,7 +72,8 @@ export const FenceViewer: FC<FenceViewerProps> = ({
       };
     }
     // Calculate the center based on the points provided
-    if (!!points?.length) {
+    if (!!polygons?.length) {
+      const points = polygons.reduce((all, p) => [...all, ...p], []);
       return {
         centerLat: Helpers.avg(points, p => p.lat),
         centerLon: Helpers.avg(points, p => p.lon)
@@ -83,7 +84,7 @@ export const FenceViewer: FC<FenceViewerProps> = ({
       centerLat: deviceWidth / 2,
       centerLon: deviceWidth / 2
     };
-  }, [center, points, deviceWidth]);
+  }, [center, polygons, deviceWidth]);
 
   // Calculate the lowest and highest range-values to map coords to pixels
   const {lowestLatitude, highestLatitude, lowestLongitude, highestLongitude} = useMemo(() => {
@@ -95,12 +96,6 @@ export const FenceViewer: FC<FenceViewerProps> = ({
       highestLongitude: centerLon + offset,
     }
   }, [centerLat, centerLon, viewportSize]);
-
-  // Map coords to pixels
-  const normalizedCoords = points.map(point => ({
-    y: Helpers.mapRange(point.lat, lowestLatitude, highestLatitude, 0, deviceWidth),
-    x: Helpers.mapRange(point.lon, lowestLongitude, highestLongitude, deviceWidth, 0),
-  }));
 
   const getAccuracyRadius = (): number => {
     const low = (lowestLongitude + lowestLatitude) / 2;
@@ -118,12 +113,22 @@ export const FenceViewer: FC<FenceViewerProps> = ({
   }, []);
 
   // Render the component
+
+  const renderFence = (points: Array<Point>, key: number): ReactNode => {
+    if (points?.length < 2) {
+      return null;
+    }
+    // Map coords to pixels
+    const normalizedCoords = points.map(point => ({
+      y: Helpers.mapRange(point.lat, lowestLatitude, highestLatitude, 0, deviceWidth),
+      x: Helpers.mapRange(point.lon, lowestLongitude, highestLongitude, deviceWidth, 0),
+    }));
+    return <polygon key={key} className={classes.geoFence} points={normalizedCoords.map(p => `${p.x},${p.y}`).join(' ')}/>
+  };
+
   return (
     <svg width={deviceWidth} height={deviceWidth} className={classes.viewport}>
-      {
-        points.length >= 2 &&
-        <polygon className={classes.geoFence} points={normalizedCoords.map(p => `${p.x},${p.y}`).join(' ')}/>
-      }
+      {polygons.map(renderFence)}
       {
         displayCenterDot && <circle cx={deviceWidth / 2} cy={deviceWidth / 2} className={classes.location} r={5}/>
       }

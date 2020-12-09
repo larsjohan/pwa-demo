@@ -3,11 +3,14 @@ import getApi from '../services/ApiService';
 import {Fence} from '../declarations/Fence';
 import {List, ListItem, Typography} from '@material-ui/core';
 import {useHistory} from 'react-router-dom';
+import FenceViewer from '../components/FenceViewer';
+import useCurrentLocation from '../hooks/UseCurrentLocation';
 
 const api = getApi();
 
 export const HomeView: FC = () => {
   const history = useHistory();
+  const location = useCurrentLocation();
   const [fences, setFences] = useState<Array<Fence>>([]);
 
   useEffect(() => {
@@ -19,11 +22,27 @@ export const HomeView: FC = () => {
   }
 
   return (
-    <List>
+    <>
+      <Typography variant="h5">
+        Stored fences
+      </Typography>
+      <List>
+        {
+          fences.map(fence => (<ListItem button key={fence.id} onClick={() => history.push(`/fence/${fence.id}`)}>{fence.name}</ListItem>))
+        }
+      </List>
+      <Typography variant="h5">
+        All fences
+      </Typography>
       {
-        fences.map(fence => (<ListItem button key={fence.id} onClick={() => history.push(`/fence/${fence.id}`)}>{fence.name}</ListItem>))
+        location &&
+        <FenceViewer polygons={fences.map(f => f.points)}
+                     center={{lat: location?.coords.latitude, lon: location?.coords.longitude}}
+                     accuracy={location.coords.accuracy}
+                     displayCenterDot
+                     viewportSize={20}/>
       }
-    </List>
+    </>
   );
 };
 

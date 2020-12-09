@@ -23,7 +23,7 @@ export const DisplayFenceView: FC = () => {
   return (
     <>
       <Typography variant="h4">{fence.name}</Typography>
-      <FenceViewer points={fence.points || []} />
+      <FenceViewer polygons={[fence.points || []]} />
     </>
   );
 };

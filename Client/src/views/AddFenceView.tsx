@@ -140,7 +140,7 @@ export const AddFenceView: FC = () => {
                    fullWidth/>
       </Box>
 
-      <FenceViewer points={points}
+      <FenceViewer polygons={[points]}
                    center={{lat: currentDeviceLatitude, lon: currentDeviceLongitude}}
                    accuracy={accuracy}
                    displayCenterDot/>
