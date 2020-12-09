@@ -1,25 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {FC} from 'react';
+import AppLayout from './framework/AppLayout';
+import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
+import HomeView from './views/HomeView';
+import AddFenceView from './views/AddFenceView';
+import DisplayFenceView from './views/DisplayFenceView';
 
-function App() {
+const App: FC = () => {
+
+  if (!('geolocation' in navigator)){
+    return (<p>This device does not support geolocation</p>);
+  }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <AppLayout>
+        <Switch>
+
+          <Route path="/home">
+            <HomeView/>
+          </Route>
+
+          <Route path="/fence/add">
+            <AddFenceView/>
+          </Route>
+
+          <Route path="/fence/:fenceId">
+            <DisplayFenceView/>
+          </Route>
+
+          <Route path="*">
+            <Redirect to="/home"/>
+          </Route>
+
+        </Switch>
+      </AppLayout>
+    </BrowserRouter>
   );
 }
 
