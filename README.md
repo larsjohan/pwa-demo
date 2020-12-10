@@ -77,4 +77,5 @@ or changing the default-port in the `./server/server.js` file.
 2. Add appropriate caching-rules
     * See `./client/src/service-worker.ts` and [the Workbox documentation on caching and caching strategies](https://developers.google.com/web/tools/workbox/guides/get-started#routing_and_caching_strategies)
 3. Use the `background-sync` API to be able to create GeoFences while offline.
-4. Use the `notification` API to notify the user when he/she crosses the boundary of a GeoFence. 
+    * See [the WorkBox documentation on background-sync](https://developers.google.com/web/tools/workbox/modules/workbox-background-sync)
+4. Use the `notification` API to notify the user when he/she crosses the boundary of a GeoFence.
