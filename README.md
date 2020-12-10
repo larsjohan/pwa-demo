@@ -1,19 +1,22 @@
 # Welcome to PWA Demo
-The intention of this project is to learn how PWAs work using an 
-application that represents a somewhat real scenario. The app is a default ReactJS-app (created using create-react-app, or CRA), 
+The intention of this project is to learn how PWAs work using an application that represents a somewhat real scenario. 
+The app is a default [ReactJS](https://reactjs.org/docs/hello-world.html)-app (created using [create-react-app, or CRA](https://create-react-app.dev/)), 
 and your task is to turn it into a PWA. Some suggestions to what you can do can be found under [Tasks](#tasks).
+
+The main purpose of this app is to manage [GeoFences](https://en.wikipedia.org/wiki/Geo-fence), and the app is separated into the following pages:
+* **Home-page**: Displaying a list of stored GeoFences, and render these visually relative to the device's current position.
+* **Fence-page**: Renders the selected fence. Just the shape.
+* **Create-fence-page**: Lets the user record a set of points, name these, and store them to the server as a GeoFence.
+   * The points will be rendered relative to the device's current position
 
 ## Disclaimers
 * Limited iOS support
 * The codebase is provided as is, and is not thoroughly tested, therefore bugs may appear.
 * This app is intended for testing-/demo purposes only. Usage happens at the user's discretion.
+* The accuracy of the device's position may vary, as it is determined by the available hardware on the device.
 
 ## Modules
-This app consists of a server (express) and a client (ReactJS). 
-
-The main functions of this app are: 
-* Recording a collection of geographical coordinates and save these as a [GeoFence](https://en.wikipedia.org/wiki/Geo-fence).
-* Retrieving and displaying stored GeoFences. 
+This app consists of a server ([express](https://expressjs.com/)) and a client ([ReactJS](https://reactjs.org/docs/hello-world.html)). 
 
 ### Server
 The server is a single file, providing a simple API that stores the GeoFences in memory. 
