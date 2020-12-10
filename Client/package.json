@@ -24,7 +24,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "createCert": "openssl req -newkey rsa:2048 -new -nodes -x509 -days 365 -keyout key.pem -out cert.pem",
+    "start:prod": "npm run build && npx http-server -c-1 -S -K ./key.pem -C ./cert.pem -P http://localhost:8080 -p 3000 ./build"
   },
   "eslintConfig": {
     "extends": [
